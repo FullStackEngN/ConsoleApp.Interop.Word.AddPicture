@@ -77,7 +77,10 @@ namespace ConsoleApp.Interop.Word.AddPicture
                 InlineShape pic = wordDoc.InlineShapes.AddPicture(imagePath, ref missing, ref saveWithDocument, ref oRange);
                 pic.Width = 595;
                 pic.Height = 842;
+
                 Shape shapePic = pic.ConvertToShape();
+                shapePic.Left = -50;
+                shapePic.Top = -30;
                 shapePic.WrapFormat.Type = WdWrapType.wdWrapFront;
             }
 
