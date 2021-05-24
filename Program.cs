@@ -1,6 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
-using System.Collections.Generic;
+using System.IO;
 
 namespace ConsoleApp.Interop.Word.AddPicture
 {
@@ -15,26 +15,23 @@ namespace ConsoleApp.Interop.Word.AddPicture
             string newDocPath = @"c:\temp\test-new.docx";
 
             Application wordApp = new Application();
-            //Document wordDoc = wordApp.Documents.Add();
+
+            if(!File.Exists(docPath))
+            {
+                Console.WriteLine("Source Word document doesn't exist, please put a document in the path: " + docPath);
+                return;
+            }
+
+            if (!File.Exists(imagePath))
+            {
+                Console.WriteLine("Image file doesn't exist, please put a document in the path: " + imagePath);
+                return;
+            }
 
             Document wordDoc = wordApp.Documents.Open(docPath);
 
             object saveWithDocument = true;
             object missing = Type.Missing;
-
-            // Add picture to each bookmark location
-            //Bookmarks bookmars = wordDoc.Bookmarks;
-            //foreach (Bookmark item in bookmars)
-            //{
-            //    object oRange = item.Range;
-            //    InlineShape pic = wordDoc.InlineShapes.AddPicture(imagePath, ref missing, ref saveWithDocument, ref oRange);
-            //    pic.Width = 595;
-            //    pic.Height = 842;
-            //    Shape shapePic = pic.ConvertToShape();
-            //    shapePic.WrapFormat.Type = WdWrapType.wdWrapFront;
-            //}
-
-            //List<string> Pages = new List<string>();
 
             // Get pages count
             WdStatistic PagesCountStat = WdStatistic.wdStatisticPages;
